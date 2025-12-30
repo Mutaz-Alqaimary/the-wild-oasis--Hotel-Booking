@@ -34,7 +34,7 @@ async function Navigation() {
                   width={32}
                   height={32}
                 />
-                <span>Guest area</span>
+                <span>{item.label}</span>
               </Link>
             ) : (
               <Link
