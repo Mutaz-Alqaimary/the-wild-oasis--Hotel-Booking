@@ -41,35 +41,6 @@ function Filter() {
           </Button>
         );
       })}
-
-      {/* <Button
-        filter="all"
-        handleFilter={handleFilter}
-        activeFilter={activeFilter}
-      >
-        All cabins
-      </Button>
-      <Button
-        filter="small"
-        handleFilter={handleFilter}
-        activeFilter={activeFilter}
-      >
-        2&mdash;3 guests
-      </Button>
-      <Button
-        filter="medium"
-        handleFilter={handleFilter}
-        activeFilter={activeFilter}
-      >
-        4&mdash;7 guests
-      </Button>
-      <Button
-        filter="large"
-        handleFilter={handleFilter}
-        activeFilter={activeFilter}
-      >
-        8&mdash;12 guests
-      </Button> */}
     </div>
   );
 }
