@@ -44,13 +44,6 @@ export default async function Page() {
         </section>
       ) : (
         <section aria-label="Your reservations">
-          {/* <ul className="space-y-6">
-            {bookings.map((booking) => (
-              <li key={booking.id}>
-                <ReservationCard booking={booking} />
-              </li>
-            ))}
-          </ul> */}
           <ReservationList bookings={bookings} />
         </section>
       )}
