@@ -90,7 +90,7 @@ function ReservationCard({
         </div>
       </div>
 
-      <div className="flex flex-col border-l border-primary-800 w-[100px]">
+      <div className="flex flex-col border-l border-primary-800 w-25">
         {!isPast(startDate) ? (
           <>
             <Link
