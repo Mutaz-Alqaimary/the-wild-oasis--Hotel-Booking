@@ -4,8 +4,11 @@ import type { FC } from "react";
 
 const Header: FC = () => {
   return (
-    <header className="border-b border-primary-900 px-8 py-5" role="banner">
-      <div className="flex justify-between items-center max-w-7xl mx-auto">
+    <header
+      className="border-b border-primary-900 px-4 py-4 sm:px-6 sm:py-5 md:px-8"
+      role="banner"
+    >
+      <div className="mx-auto flex min-w-0 max-w-7xl items-center justify-between gap-4">
         <Logo />
         <Navigation />
       </div>

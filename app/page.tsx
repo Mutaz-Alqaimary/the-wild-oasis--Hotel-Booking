@@ -4,29 +4,31 @@ import bg from "@/public/bg.png";
 
 export default function Page() {
   return (
-    <main className="mt-24">
+    <div className="mt-12 sm:mt-16 md:mt-20 lg:mt-24">
       <div className="absolute inset-0">
         <Image
           src={bg}
           fill
           placeholder="blur"
           quality={75}
-          className="object-cover object-top"
+          preload={true}
+          sizes="100vw"
+          className="object-cover object-[center_28%] sm:object-top"
           alt="Mountains and forests with two cabins"
         />
       </div>
 
-      <div className="relative z-10 text-center">
-        <h1 className="text-8xl text-primary-50 mb-10 tracking-tight font-normal">
+      <div className="relative z-10 px-1 text-center sm:px-2">
+        <h1 className="mb-6 text-balance text-4xl font-normal tracking-tight text-primary-50 sm:mb-8 sm:text-5xl md:text-6xl lg:mb-10 lg:text-7xl xl:text-8xl">
           Welcome to paradise.
         </h1>
         <Link
           href="/cabins"
-          className="bg-accent-500 px-8 py-6 text-primary-800 text-lg font-semibold hover:bg-accent-600 transition-all rounded-md"
+          className="inline-flex items-center justify-center rounded-md bg-accent-500 px-5 py-3.5 text-base font-semibold text-primary-800 transition-all hover:bg-accent-600 sm:px-8 sm:py-6 sm:text-lg"
         >
           Explore luxury cabins
         </Link>
       </div>
-    </main>
+    </div>
   );
 }

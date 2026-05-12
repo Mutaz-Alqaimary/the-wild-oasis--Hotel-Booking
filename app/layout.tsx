@@ -43,8 +43,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
       >
         <Header />
 
-        <div className="flex-1 px-8 py-12 grid">
-          <main className="max-w-7xl mx-auto w-full">
+        <div className="flex-1 min-w-0 w-full grid px-4 py-8 sm:px-6 sm:py-10 md:px-8 lg:py-12">
+          <main className="mx-auto w-full min-w-0 max-w-7xl">
             <ReservationProvider>{children}</ReservationProvider>
           </main>
         </div>

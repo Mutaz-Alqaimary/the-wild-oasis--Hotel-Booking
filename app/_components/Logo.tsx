@@ -3,22 +3,25 @@ import Link from "next/link";
 import logo from "@/public/logo.png";
 import type { FC } from "react";
 
-
 const Logo: FC = () => {
   return (
-    <Link href="/" className="flex items-center gap-4 z-10">
+    <Link
+      href="/"
+      className="z-10 flex min-w-0 shrink items-center gap-2 sm:gap-3 md:gap-4"
+    >
       <Image
         src={logo}
-        height="60"
-        width="60"
+        width={60}
+        height={60}
         alt="The Wild Oasis logo"
-        preload
+        preload={true}
+        className="h-10 w-10 shrink-0 sm:h-12 sm:w-12 md:h-[60px] md:w-[60px]"
       />
-      <span className="text-xl font-semibold text-primary-100">
+      <span className="truncate text-base font-semibold text-primary-100 transition-colors hover:text-accent-400 sm:text-lg md:text-xl">
         The Wild Oasis
       </span>
     </Link>
   );
-}
+};
 
 export default Logo;
