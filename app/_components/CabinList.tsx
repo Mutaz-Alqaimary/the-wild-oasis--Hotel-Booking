@@ -30,7 +30,7 @@ async function CabinList({
     displayedCabins = cabins.filter((cabin) => cabin.maxCapacity <= 3);
   if (filter === "medium")
     displayedCabins = cabins.filter(
-      (cabin) => cabin.maxCapacity >= 4 && cabin.maxCapacity <= 7
+      (cabin) => cabin.maxCapacity >= 4 && cabin.maxCapacity <= 7,
     );
   if (filter === "large")
     displayedCabins = cabins.filter((cabin) => cabin.maxCapacity >= 8);
@@ -38,7 +38,7 @@ async function CabinList({
   return displayedCabins.length > 0 ? (
     <section
       aria-label="Available cabins"
-      className="grid sm:grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-8 lg:gap-12 xl:gap-14"
+      className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-[repeat(auto-fill,minmax(min(100%,450px),1fr))] lg:gap-12 xl:gap-14"
     >
       {displayedCabins.map((cabin, index) => (
         <CabinCard cabin={cabin} key={cabin.id} isFirst={index === 0} />

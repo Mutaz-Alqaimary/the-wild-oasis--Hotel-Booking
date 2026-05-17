@@ -23,25 +23,25 @@ const CabinCard: FC<Props> = ({ cabin, isFirst }) => {
 
   return (
     <article
-      className="flex flex-col sm:flex-row border-primary-800 border rounded-sm sm:h-auto h-110"
+      className="flex flex-col overflow-hidden rounded-sm border border-primary-800 xl:flex-row xl:min-h-0"
       aria-labelledby={`cabin-${id}-title`}
     >
-      <div className="flex-1 relative">
+      <div className="relative min-h-56 flex-1 sm:min-h-52">
         <Image
           src={image}
           alt={`Cabin ${name}`}
           fill
-          className="object-cover border-r border-primary-800"
-          sizes="(max-width: 640px) 100vw, 240px"
+          className="object-cover sm:border-r sm:border-primary-800"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 280px"
           {...(isFirst ? { preload: true, loading: "eager" } : {})}
         />
       </div>
 
       <div className="sm:grow">
-        <div className="pt-5 pb-4 px-7 bg-primary-950">
+        <div className="bg-primary-950 px-5 pb-4 pt-5 sm:px-7">
           <h3
             id={`cabin-${id}-title`}
-            className="text-accent-500 font-semibold text-2xl mb-3"
+            className="mb-3 text-xl font-semibold text-accent-500 sm:text-2xl"
           >
             {name}
           </h3>
@@ -53,18 +53,18 @@ const CabinCard: FC<Props> = ({ cabin, isFirst }) => {
             </p>
           </div>
 
-          <p className="flex gap-3 justify-end items-baseline">
+          <p className="flex flex-wrap items-baseline justify-end gap-2 gap-y-1 sm:gap-3">
             {discount > 0 ? (
               <>
-                <span className="text-3xl font-[350]">
+                <span className="text-2xl font-[350] sm:text-3xl">
                   {formatCurrency(priceNow)}
                 </span>
-                <span className="line-through font-semibold text-primary-600">
+                <span className="font-semibold text-primary-600 line-through">
                   {formatCurrency(regularPrice)}
                 </span>
               </>
             ) : (
-              <span className="text-3xl font-[350]">
+              <span className="text-2xl font-[350] sm:text-3xl">
                 {formatCurrency(regularPrice)}
               </span>
             )}
@@ -72,10 +72,10 @@ const CabinCard: FC<Props> = ({ cabin, isFirst }) => {
           </p>
         </div>
 
-        <div className="bg-primary-950 border-t border-t-primary-800 text-right">
+        <div className="border-t border-t-primary-800 bg-primary-950 text-right">
           <Link
             href={`/cabins/${id}`}
-            className="border-l border-primary-800 py-4 px-6 inline-block hover:bg-accent-600 transition-all hover:text-primary-900"
+            className="inline-block w-full border-primary-800 py-4 text-center transition-all hover:bg-accent-600 hover:text-primary-900 lg:w-auto lg:border-l lg:px-6 lg:text-left"
             aria-label={`View details and reserve ${name}`}
           >
             Details & reservation →

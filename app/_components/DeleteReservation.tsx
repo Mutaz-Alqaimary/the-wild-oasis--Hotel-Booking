@@ -21,12 +21,13 @@ function DeleteReservation({
   return (
     <button
       onClick={handleDelete}
-      className="group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900 cursor-pointer"
+      className="group flex min-h-12 grow items-center justify-center gap-2 px-3 text-xs font-bold uppercase text-primary-300 transition-all duration-200 hover:bg-red-500/90 hover:text-primary-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 disabled:cursor-not-allowed disabled:opacity-70 md:min-h-0 md:flex-col md:py-4 lg:flex-row lg:py-3 xl:flex-col xl:py-4"
       aria-label={`Delete reservation ${bookingId}`}
+      disabled={isPending}
     >
       {!isPending ? (
         <>
-          <TrashIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
+          <TrashIcon className="size-5 shrink-0 text-primary-600 transition-colors group-hover:text-primary-50 md:size-6" />
           <span className="mt-1">Delete</span>
         </>
       ) : (

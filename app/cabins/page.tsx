@@ -32,12 +32,12 @@ export default async function Page({
     : "all";
 
   return (
-    <main>
-      <h1 className="text-4xl mb-5 text-accent-400 font-medium">
+    <main className="min-w-0">
+      <h1 className="mb-4 text-3xl font-medium text-accent-400 sm:mb-5 md:text-4xl">
         Our Luxury Cabins
       </h1>
 
-      <p className="text-primary-200 text-lg mb-10">
+      <p className="mb-8 text-base leading-relaxed text-primary-200 sm:mb-10 sm:text-lg">
         Cozy yet luxurious cabins, located right in the heart of the Italian
         Dolomites. Imagine waking up to beautiful mountain views, spending your
         days exploring the dark forests around, or just relaxing in your private
@@ -46,7 +46,7 @@ export default async function Page({
         Welcome to paradise.
       </p>
 
-      <div className="flex justify-end mb-8">
+      <div className="mb-6 flex min-w-0 flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-center md:justify-end">
         <Filter />
       </div>
 

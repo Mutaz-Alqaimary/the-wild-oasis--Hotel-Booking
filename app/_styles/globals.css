@@ -54,42 +54,228 @@
       transform: rotate(1turn);
     }
   }
+
+  @keyframes content-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes card-enter {
+    from {
+      opacity: 0;
+      transform: translateY(18px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes soft-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 0 rgb(198 153 99 / 0);
+    }
+    50% {
+      box-shadow: 0 0 32px rgb(198 153 99 / 0.14);
+    }
+  }
 }
 
-/* date picker */
-.rdp-root {
-  --rdp-today-color: #0f0 !important;
-  --rdp-disabled-opacity: 0.6 !important;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
 
+/* date picker — fluid sizing via CSS variables (react-day-picker v9) */
+.rdp-root {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
+  font-size: clamp(0.8125rem, 2.2vw + 0.5rem, 1rem);
+
+  --rdp-day_button-height: clamp(2rem, 5.5vw + 0.25rem, 2.75rem);
+  --rdp-day_button-width: clamp(2rem, 5.5vw + 0.25rem, 2.75rem);
+  --rdp-day-height: var(--rdp-day_button-height);
+  --rdp-day-width: var(--rdp-day_button-width);
+  --rdp-nav_button-height: clamp(1.75rem, 4vw + 0.5rem, 2.25rem);
+  --rdp-nav_button-width: clamp(1.75rem, 4vw + 0.5rem, 2.25rem);
+  --rdp-nav-height: clamp(2.25rem, 5vw + 0.75rem, 2.75rem);
+  --rdp-months-gap: clamp(0.75rem, 2.5vw, 1.5rem);
+  --rdp-dropdown-gap: clamp(0.25rem, 1vw, 0.5rem);
+
+  --rdp-today-color: var(--color-accent-500) !important;
+  --rdp-disabled-opacity: 0.6 !important;
   --rdp-accent-color: var(--color-accent-600) !important;
   --rdp-accent-background-color: var(--color-accent-500) !important;
 }
 
 .rdp-day {
+  position: relative;
+  width: var(--rdp-day_button-width);
+  height: var(--rdp-day_button-height);
   font-weight: 600 !important;
-  height: 35px !important;
-  width: 35px !important;
-  --rdp-day_button-width: 35px !important;
-  --rdp-day_button-height: 35px !important;
 }
 
 .rdp-months {
   display: flex !important;
-  gap: 1.5rem;
-  justify-content: center;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  width: 100%;
 }
 
-.rdp-footer {
-  padding: 12px 16px;
-  margin-top: 12px;
-  text-align: center;
-  font-weight: 600;
-  color: var(--color-primary-100);
+.rdp-month {
+  width: min(100%, calc(var(--rdp-day-width) * 7 + 1.5rem));
+  max-width: 100%;
+}
+
+.rdp-month_grid {
+  width: 100%;
+}
+
+.rdp-month_caption {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 0.5rem;
+  padding-inline: clamp(0.25rem, 2vw, 0.5rem);
+  font-size: clamp(0.875rem, 2vw + 0.5rem, 1.125rem);
+}
+
+.rdp-caption_label {
+  font-size: inherit;
+}
+
+.rdp-dropdown,
+.rdp-dropdowns {
+  font-size: clamp(0.75rem, 1.8vw + 0.4rem, 0.9375rem);
 }
 
 .rdp-dropdown {
   background-color: var(--color-accent-600);
   color: var(--color-primary-50);
   border-radius: 6px;
-  padding: 4px 8px;
+  padding: clamp(0.2rem, 1vw, 0.35rem) clamp(0.35rem, 1.5vw, 0.5rem);
+  max-width: 100%;
+}
+
+.rdp-weekday {
+  font-size: clamp(0.6875rem, 1.6vw + 0.35rem, 0.8125rem);
+  opacity: 0.85;
+}
+
+.rdp-day_button {
+  position: relative;
+  z-index: 1;
+  justify-content: center;
+  margin-inline: auto;
+  font-size: clamp(0.75rem, 1.8vw + 0.35rem, 0.9375rem);
+}
+
+.rdp-range_start,
+.rdp-range_middle,
+.rdp-range_end {
+  background: transparent !important;
+}
+
+.rdp-range_start::before,
+.rdp-range_middle::before,
+.rdp-range_end::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  height: var(--rdp-day_button-height);
+  background-color: var(--rdp-range_middle-background-color);
+  transform: translateY(-50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.rdp-range_start::before {
+  right: 0;
+  left: 50%;
+}
+
+.rdp-range_middle::before {
+  right: 0;
+  left: 0;
+}
+
+.rdp-range_end::before {
+  right: 50%;
+  left: 0;
+}
+
+.rdp-range_start.rdp-range_end::before {
+  display: none;
+}
+
+.rdp-button_previous,
+.rdp-button_next {
+  min-width: var(--rdp-nav_button-width);
+  min-height: var(--rdp-nav_button-height);
+}
+
+.rdp-footer {
+  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 3vw, 1rem);
+  margin-top: clamp(0.5rem, 2vw, 0.75rem);
+  text-align: center;
+  font-weight: 600;
+  font-size: clamp(0.75rem, 1.8vw + 0.35rem, 0.9375rem);
+  line-height: 1.4;
+  color: var(--color-primary-100);
+  word-break: break-word;
+}
+
+@media (min-width: 768px) {
+  .rdp-root {
+    --rdp-day_button-height: clamp(2.125rem, 3.5vw, 2.75rem);
+    --rdp-day_button-width: clamp(2.125rem, 3.5vw, 2.75rem);
+    --rdp-day-height: var(--rdp-day_button-height);
+    --rdp-day-width: var(--rdp-day_button-width);
+  }
+
+  .rdp-root.rdp-months--multi .rdp-months {
+    flex-wrap: nowrap !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rdp-root {
+    --rdp-day_button-height: clamp(2rem, 2.8vw, 2.625rem);
+    --rdp-day_button-width: clamp(2rem, 2.8vw, 2.625rem);
+    --rdp-day-height: var(--rdp-day_button-height);
+    --rdp-day-width: var(--rdp-day_button-width);
+  }
+}
+
+@media (min-width: 1536px) {
+  .rdp-root {
+    --rdp-day_button-height: 2.75rem;
+    --rdp-day_button-width: 2.75rem;
+    --rdp-day-height: var(--rdp-day_button-height);
+    --rdp-day-width: var(--rdp-day_button-width);
+  }
+}
+
+button, a {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    transform: scale(0.98);
+  }
 }

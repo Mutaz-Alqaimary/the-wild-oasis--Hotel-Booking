@@ -19,8 +19,8 @@ export default function Page() {
       </div>
 
       <div className="relative z-10 px-1 text-center sm:px-2">
-        <h1 className="mb-6 text-balance text-4xl font-normal tracking-tight text-primary-50 sm:mb-8 sm:text-5xl md:text-6xl lg:mb-10 lg:text-7xl xl:text-8xl">
-          Welcome to paradise.
+        <h1 className="mx-auto mb-6 max-w-5xl text-balance text-4xl font-semibold leading-tight text-primary-50 drop-shadow-lg sm:mb-8 sm:text-5xl md:text-6xl lg:mb-10 lg:text-7xl xl:text-7xl">
+          Welcome to Paradise
         </h1>
         <Link
           href="/cabins"

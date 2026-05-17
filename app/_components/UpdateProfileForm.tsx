@@ -22,43 +22,54 @@ function UpdateProfileForm({
   return (
     <form
       action={updateGuest}
-      className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
+      className="flex flex-col gap-6 rounded-md border border-primary-800/80 bg-primary-900/80 px-4 py-6 text-base shadow-2xl shadow-primary-950/20 motion-safe:animate-[card-enter_520ms_ease-out_120ms_both] sm:px-8 sm:py-8 sm:text-lg md:px-10 xl:px-12"
       aria-label="Update profile form"
     >
       <div className="space-y-2">
-        <label htmlFor="fullName">Full name</label>
+        <label htmlFor="fullName" className="block font-semibold text-primary-100">
+          Full name
+        </label>
         <input
           id="fullName"
           name="fullName"
           defaultValue={fullName}
           disabled
-          className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
+          className="min-h-12 w-full rounded-md border border-primary-700/20 bg-primary-100 px-4 py-3 text-primary-900 shadow-sm outline-none transition-all duration-200 disabled:cursor-not-allowed disabled:border-primary-800 disabled:bg-primary-800/80 disabled:text-primary-400 sm:px-5"
         />
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="email">Email address</label>
+        <label htmlFor="email" className="block font-semibold text-primary-100">
+          Email address
+        </label>
         <input
           id="email"
           name="email"
           type="email"
           defaultValue={email}
           disabled
-          className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
+          className="min-h-12 w-full rounded-md border border-primary-700/20 bg-primary-100 px-4 py-3 text-primary-900 shadow-sm outline-none transition-all duration-200 disabled:cursor-not-allowed disabled:border-primary-800 disabled:bg-primary-800/80 disabled:text-primary-400 sm:px-5"
         />
       </div>
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <label htmlFor="nationality">Where are you from?</label>
+          <label
+            htmlFor="nationality"
+            className="block font-semibold text-primary-100"
+          >
+            Where are you from?
+          </label>
           {countryFlag && (
-            <Image
-              src={countryFlag}
-              alt="Country flag"
-              className="h-5 rounded-sm"
-              height={20}
-              width={20}
-            />
+            <span className="flex size-8 items-center justify-center rounded-full border border-primary-700 bg-primary-950/60">
+              <Image
+                src={countryFlag}
+                alt="Country flag"
+                className="h-4 w-5 rounded-sm object-cover"
+                height={16}
+                width={20}
+              />
+            </span>
           )}
         </div>
 
@@ -66,16 +77,21 @@ function UpdateProfileForm({
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="nationalID">National ID number</label>
+        <label
+          htmlFor="nationalID"
+          className="block font-semibold text-primary-100"
+        >
+          National ID number
+        </label>
         <input
           id="nationalID"
           name="nationalID"
           defaultValue={nationalID}
-          className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+          className="min-h-12 w-full rounded-md border border-primary-700/20 bg-primary-100 px-4 py-3 text-primary-900 shadow-sm outline-none transition-all duration-200 focus:border-accent-500 focus:ring-2 focus:ring-accent-500/40 sm:px-5"
         />
       </div>
 
-      <div className="flex justify-end items-center gap-6">
+      <div className="flex flex-col items-stretch gap-4 border-t border-primary-800/80 pt-2 sm:flex-row sm:items-center sm:justify-end sm:gap-6 sm:pt-4">
         <SubmitButton pendingLabel="Updating...">Update profile</SubmitButton>
       </div>
     </form>

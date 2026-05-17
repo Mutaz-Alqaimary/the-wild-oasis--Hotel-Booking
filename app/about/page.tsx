@@ -55,8 +55,6 @@ export default async function Page(): Promise<ReactElement> {
           <Image
             src={image1}
             alt="Family sitting around a fire pit in front of cabin"
-            placeholder="blur"
-            quality={75}
             sizes="(min-width: 1024px) 40vw, 100vw"
             className="aspect-5/3 w-full object-cover md:aspect-2/1"
           />
@@ -65,7 +63,6 @@ export default async function Page(): Promise<ReactElement> {
         <div className="min-w-0 overflow-hidden rounded-lg lg:col-span-2">
           <Image
             src={image2}
-            placeholder="blur"
             sizes="(min-width: 1024px) 40vw, 100vw"
             className="aspect-5/3 w-full object-cover md:aspect-2/1"
             alt="Family that manages The Wild Oasis"

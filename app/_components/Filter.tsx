@@ -23,7 +23,11 @@ function Filter() {
   ];
 
   return (
-    <div className="border border-primary-800 flex">
+    <div
+      className="flex flex-wrap gap-px overflow-hidden rounded-sm border border-primary-800 bg-primary-800 sm:flex-nowrap sm:gap-0"
+      role="group"
+      aria-label="Filter cabins by capacity"
+    >
       {filters.map((filterObj) => {
         const filterKey = Object.keys(filterObj)[0] as
           | "all"
@@ -58,7 +62,8 @@ function Button({
 }) {
   return (
     <button
-      className={`px-5 py-2 hover:bg-primary-700 ${
+      type="button"
+      className={`min-h-11 min-w-0 flex-1 px-3 py-2.5 text-sm transition-colors hover:bg-primary-700 sm:min-h-10 sm:flex-none sm:px-5 sm:py-2 sm:text-base ${
         filter === activeFilter ? "bg-primary-700 text-primary-50" : ""
       }`}
       onClick={() => handleFilter(filter)}

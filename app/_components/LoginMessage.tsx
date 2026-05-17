@@ -2,14 +2,13 @@ import Link from "next/link";
 
 function LoginMessage() {
   return (
-    <div className="grid bg-primary-800 ">
-      <p className="text-center text-xl py-12 self-center">
+    <div className="grid min-h-48 place-items-center bg-primary-800 px-4 py-10 sm:min-h-56 sm:py-12">
+      <p className="max-w-md text-center text-lg leading-relaxed text-primary-100 sm:text-xl">
         Please{" "}
-        <Link href="/login" className="underline text-accent-500">
+        <Link href="/login" className="text-accent-500 underline">
           login
         </Link>{" "}
-        to reserve this
-        <br /> cabin right now
+        to reserve this cabin right now.
       </p>
     </div>
   );
