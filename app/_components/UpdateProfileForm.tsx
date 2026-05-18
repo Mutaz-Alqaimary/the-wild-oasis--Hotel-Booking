@@ -11,7 +11,6 @@ function UpdateProfileForm({
   guest: {
     fullName: string;
     email: string;
-    // nationality: string;
     nationalID: string;
     countryFlag: string;
   };
@@ -87,6 +86,11 @@ function UpdateProfileForm({
           id="nationalID"
           name="nationalID"
           defaultValue={nationalID}
+          pattern="^[a-zA-Z0-9]{6,12}$"
+          title="National ID number must be 6-12 characters long and contain only letters and numbers"
+          aria-describedby="nationalID-description"
+          placeholder="6-12 characters, letters and numbers only"
+          required
           className="min-h-12 w-full rounded-md border border-primary-700/20 bg-primary-100 px-4 py-3 text-primary-900 shadow-sm outline-none transition-all duration-200 focus:border-accent-500 focus:ring-2 focus:ring-accent-500/40 sm:px-5"
         />
       </div>

@@ -12,6 +12,7 @@ interface SelectCountryProps {
   name?: string;
   id?: string;
   className?: string;
+  props?: React.ComponentProps<"select">;
 }
 
 // Server component (async) that returns a select with country options.
@@ -20,12 +21,12 @@ export default async function SelectCountry({
   name,
   id,
   className,
+  props,
 }: SelectCountryProps): Promise<ReactElement> {
   const countries = (await getCountries()) as Country[];
   const flag =
     countries.find((country) => country.name === defaultCountry)?.flag ?? "";
 
-  // console.log(flag);
   return (
     <select
       name={name}
@@ -34,6 +35,7 @@ export default async function SelectCountry({
       defaultValue={defaultCountry ? `${defaultCountry}%${flag}` : ""}
       className={className}
       key={`${defaultCountry}-${flag}`}
+      {...props}
     >
       <option value="">Select country...</option>
       {countries.map((c) => (

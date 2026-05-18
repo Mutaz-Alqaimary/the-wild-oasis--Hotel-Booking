@@ -36,6 +36,13 @@ export default async function Page() {
           id="nationality"
           className="min-h-12 w-full rounded-md border border-primary-700/20 bg-primary-100 px-4 py-3 text-primary-900 shadow-sm outline-none transition-all duration-200 focus:border-accent-500 focus:ring-2 focus:ring-accent-500/40 sm:px-5"
           defaultCountry={guest.nationality}
+          props={{
+            "aria-describedby": "nationality-description",
+            "aria-required": "true",
+            "aria-label": "Select country",
+            required: true,
+            title: "Select your country of origin",
+          }}
         />
       </UpdateProfileForm>
     </main>
