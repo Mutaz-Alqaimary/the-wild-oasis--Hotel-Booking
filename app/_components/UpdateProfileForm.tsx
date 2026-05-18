@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { updateGuest } from "../_lib/actions";
 import SubmitButton from "./SubmitButton";
@@ -25,7 +23,10 @@ function UpdateProfileForm({
       aria-label="Update profile form"
     >
       <div className="space-y-2">
-        <label htmlFor="fullName" className="block font-semibold text-primary-100">
+        <label
+          htmlFor="fullName"
+          className="block font-semibold text-primary-100"
+        >
           Full name
         </label>
         <input
