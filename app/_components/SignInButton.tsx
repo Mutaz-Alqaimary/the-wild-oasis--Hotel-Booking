@@ -1,9 +1,20 @@
+"use client";
+
 import Image from "next/image";
+import { toast } from "sonner";
 import { signInAction } from "@/app/_lib/actions";
 
 function SignInButton() {
   return (
-    <form action={signInAction} className="w-full max-w-md">
+    <form
+      action={signInAction}
+      className="w-full max-w-md"
+      onSubmit={() =>
+        toast.loading("Opening secure Google sign in...", {
+          id: "auth-sign-in",
+        })
+      }
+    >
       <button
         type="submit"
         className="flex w-full min-h-11 cursor-pointer touch-manipulation items-center justify-center gap-3 rounded-md border border-primary-300 px-4 py-3 text-base font-medium hover:bg-primary-50 hover:text-primary-900 sm:gap-6 sm:px-8 sm:py-4 sm:text-lg md:px-10"

@@ -2,8 +2,9 @@ import "@/app/_styles/globals.css";
 import Header from "@/app/_components/Header";
 import { Josefin_Sans } from "next/font/google";
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import { ReservationProvider } from "@/app/_components/ReservationContext";
+import MutationToaster from "@/app/_components/MutationToaster";
 
 const josefin = Josefin_Sans({
   subsets: ["latin"],
@@ -48,6 +49,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <ReservationProvider>{children}</ReservationProvider>
           </main>
         </div>
+
+        <Suspense fallback={null}>
+          <MutationToaster />
+        </Suspense>
       </body>
     </html>
   );

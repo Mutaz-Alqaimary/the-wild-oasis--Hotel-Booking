@@ -9,6 +9,8 @@ import { supabase } from "./supabase";
 
 import { getBookings } from "./data-service";
 
+import { BookingData, NewBooking } from "@/types/booking";
+
 export async function updateGuest(formData: FormData) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
@@ -42,11 +44,11 @@ export async function updateGuest(formData: FormData) {
 }
 
 export async function signInAction() {
-  await signIn("google", { redirectTo: "/account" });
+  await signIn("google", { redirectTo: "/account?toast=signed-in" });
 }
 
 export async function signOutAction() {
-  await signOut({ redirectTo: "/" });
+  await signOut({ redirectTo: "/?toast=signed-out" });
 }
 
 export async function deleteBooking(bookingId: string) {
@@ -107,36 +109,12 @@ export async function updateBooking(formData: FormData) {
   revalidatePath("/account/reservations");
 
   // 7) Redirecting
-  redirect("/account/reservations");
-}
-
-interface BookingData {
-  cabinId: string | number;
-  cabinPrice: number;
-  startDate: Date;
-  endDate: Date;
-  numNights: number;
-}
-
-interface NewBooking {
-  guestId: string | number;
-  numGuests: number;
-  observations: string;
-  extrasPrice: number;
-  totalPrice: number;
-  isPaid: boolean;
-  hasBreakfast: boolean;
-  status: string;
-  cabinId: string | number;
-  cabinPrice: number;
-  startDate: Date | string;
-  endDate: Date | string;
-  numNights: number;
+  redirect("/account/reservations?toast=booking-updated");
 }
 
 export async function createBooking(
   bookingData: BookingData,
-  formData: FormData
+  formData: FormData,
 ): Promise<void> {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
@@ -165,5 +143,5 @@ export async function createBooking(
 
   revalidatePath(`/cabins/${bookingData.cabinId}`);
 
-  redirect("/cabins/thankyou");
+  redirect("/cabins/thankyou?toast=booking-created");
 }

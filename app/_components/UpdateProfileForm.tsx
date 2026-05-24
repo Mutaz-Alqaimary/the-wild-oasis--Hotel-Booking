@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { updateGuest } from "../_lib/actions";
 import SubmitButton from "./SubmitButton";
+import MutationForm from "./MutationForm";
 
 function UpdateProfileForm({
   guest,
@@ -17,10 +18,13 @@ function UpdateProfileForm({
   const { fullName, email, nationalID, countryFlag } = guest;
 
   return (
-    <form
+    <MutationForm
       action={updateGuest}
+      ariaLabel="Update profile form"
+      loadingMessage="Saving your profile..."
+      successMessage="Profile updated"
+      errorMessage="Could not update your profile"
       className="flex flex-col gap-6 rounded-md border border-primary-800/80 bg-primary-900/80 px-4 py-6 text-base shadow-2xl shadow-primary-950/20 motion-safe:animate-[card-enter_520ms_ease-out_120ms_both] sm:px-8 sm:py-8 sm:text-lg md:px-10 xl:px-12"
-      aria-label="Update profile form"
     >
       <div className="space-y-2">
         <label
@@ -99,7 +103,7 @@ function UpdateProfileForm({
       <div className="flex flex-col items-stretch gap-4 border-t border-primary-800/80 pt-2 sm:flex-row sm:items-center sm:justify-end sm:gap-6 sm:pt-4">
         <SubmitButton pendingLabel="Updating...">Update profile</SubmitButton>
       </div>
-    </form>
+    </MutationForm>
   );
 }
 

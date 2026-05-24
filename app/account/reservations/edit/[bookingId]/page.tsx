@@ -1,3 +1,4 @@
+import MutationForm from "@/app/_components/MutationForm";
 import SubmitButton from "@/app/_components/SubmitButton";
 import { updateBooking } from "@/app/_lib/actions";
 import { getBooking, getCabin } from "@/app/_lib/data-service";
@@ -22,8 +23,10 @@ export default async function Page({
         </h2>
       </header>
 
-      <form
+      <MutationForm
         action={updateBooking}
+        loadingMessage="Saving reservation changes..."
+        errorMessage="Could not update your reservation"
         className="flex flex-col gap-6 rounded-md border border-primary-800/80 bg-primary-900/80 px-4 py-6 text-base shadow-2xl shadow-primary-950/20 motion-safe:animate-[card-enter_520ms_ease-out_both] motion-safe:[animation-name:card-enter,soft-glow] motion-safe:[animation-duration:520ms,2400ms] motion-safe:[animation-delay:0ms,520ms] motion-safe:[animation-timing-function:ease-out,ease-in-out] motion-safe:[animation-fill-mode:both,none] sm:px-8 sm:py-8 sm:text-lg md:px-10 xl:px-12"
       >
         <input type="hidden" value={bookingId} name="bookingId" />
@@ -74,7 +77,7 @@ export default async function Page({
             Update reservation
           </SubmitButton>
         </div>
-      </form>
+      </MutationForm>
     </main>
   );
 }

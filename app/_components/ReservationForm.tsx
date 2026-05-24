@@ -8,6 +8,7 @@ import type { Cabin as CabinType } from "@/app/_components/CabinList";
 
 import { useReservation } from "./ReservationContext";
 import SubmitButton from "./SubmitButton";
+import MutationForm from "./MutationForm";
 
 interface ReservationFormProps {
   cabin: CabinType;
@@ -54,11 +55,13 @@ function ReservationForm({ cabin, user }: ReservationFormProps) {
         </div>
       </div>
 
-      <form
-        action={async (formData) => {
-          await createBookingWithData(formData);
-          resetRange();
-        }}
+      <MutationForm
+        action={createBookingWithData}
+        loadingMessage="Preparing your reservation..."
+        errorMessage="Could not create your reservation"
+        successMessage="Your reservation has been created"
+        onSuccess={resetRange}
+        ariaLabel="Reservation form"
         className="flex flex-col flex-1 gap-5 bg-primary-900 px-5 py-8 text-base sm:px-10 sm:py-10 sm:text-lg md:px-14 lg:px-16"
       >
         <div className="space-y-2">
@@ -101,7 +104,7 @@ function ReservationForm({ cabin, user }: ReservationFormProps) {
             <SubmitButton pendingLabel="Reserving...">Reserve now</SubmitButton>
           )}
         </div>
-      </form>
+      </MutationForm>
     </div>
   );
 }
