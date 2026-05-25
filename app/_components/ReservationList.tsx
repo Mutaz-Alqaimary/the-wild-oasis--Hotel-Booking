@@ -17,12 +17,16 @@ function ReservationList({ bookings }: { bookings: Booking[] }) {
 
   async function handleDelete(bookingId: Booking["id"]): Promise<void> {
     optimisticDelete(bookingId);
-    toast.promise(deleteBooking(bookingId), {
+    const deletePromise = deleteBooking(bookingId);
+
+    toast.promise(deletePromise, {
       loading: "Deleting reservation...",
       success: "Reservation deleted",
       error: (error) =>
         error instanceof Error ? error.message : "Could not delete reservation",
     });
+
+    await deletePromise;
   }
 
   return (

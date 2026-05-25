@@ -22,7 +22,7 @@ function ReservationCard({
   onDelete,
 }: {
   booking: Booking;
-  onDelete: (bookingId: Booking["id"]) => void;
+  onDelete: (bookingId: Booking["id"]) => Promise<void> | void;
 }) {
   const {
     id,
