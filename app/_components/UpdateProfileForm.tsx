@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { updateGuest } from "../_lib/actions";
 import SubmitButton from "./SubmitButton";
 import MutationForm from "./MutationForm";
@@ -11,11 +10,10 @@ function UpdateProfileForm({
     fullName: string;
     email: string;
     nationalID: string;
-    countryFlag: string;
   };
   children: React.ReactNode;
 }) {
-  const { fullName, email, nationalID, countryFlag } = guest;
+  const { fullName, email, nationalID } = guest;
 
   return (
     <MutationForm
@@ -64,17 +62,6 @@ function UpdateProfileForm({
           >
             Where are you from?
           </label>
-          {countryFlag && (
-            <span className="flex size-8 items-center justify-center rounded-full border border-primary-700 bg-primary-950/60">
-              <Image
-                src={countryFlag}
-                alt="Country flag"
-                className="h-4 w-5 rounded-sm object-cover"
-                height={16}
-                width={20}
-              />
-            </span>
-          )}
         </div>
 
         {children}

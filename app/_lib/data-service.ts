@@ -82,7 +82,7 @@ export async function getBookings(guestId: string | number) {
     .from("bookings")
     // We actually also need data on the cabins as well. But let's ONLY take the data that we actually need, in order to reduce downloaded data.
     .select(
-      "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)"
+      "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)",
     )
     .eq("guestId", guestId)
     .order("startDate");
@@ -136,15 +136,92 @@ export async function getSettings() {
   return data;
 }
 
+const countriesApiUrl =
+  "https://api.restcountries.com/countries/v5?response_fields=names.common,flag.url_svg,flag.url_png";
+
+export interface Country {
+  name: string;
+  flag: string;
+}
+interface RestCountriesApiResponse {
+  data?: {
+    objects?: RestCountriesApiCountry[];
+    meta?: {
+      more?: boolean;
+    };
+  };
+}
+
+interface RestCountriesApiCountry {
+  names?: {
+    common?: string;
+  };
+  flag?: {
+    url_svg?: string;
+    url_png?: string;
+  };
+}
+
+function normalizeCountriesApiResponse(response: unknown): Country[] {
+  const countries = (response as RestCountriesApiResponse).data?.objects;
+
+  if (!Array.isArray(countries)) {
+    throw new Error("Invalid countries response");
+  }
+
+  return countries
+    .map((country) => {
+      // console.log(country['names']['common']);
+      const countryName = country.names?.common;
+      const countryFlag = country.flag?.url_svg ?? country.flag?.url_png;
+
+      if (!countryName || !countryFlag) return null;
+
+      return {
+        name: countryName,
+        flag: countryFlag,
+      };
+    })
+    .filter((country): country is Country => country !== null)
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+async function fetchCountriesFromApi(apiKey: string): Promise<Country[]> {
+  const countries: Country[] = [];
+  let offset = 0;
+  let hasMore = true;
+
+  while (hasMore) {
+    const res = await fetch(`${countriesApiUrl}&limit=100&offset=${offset}`, {
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+      },
+      next: { revalidate: 60 * 60 * 24 * 7 },
+    });
+
+    if (!res.ok) throw new Error("Failed to fetch countries");
+
+    const response = await res.json();
+
+    countries.push(...normalizeCountriesApiResponse(response));
+
+    hasMore = Boolean((response as RestCountriesApiResponse).data?.meta?.more);
+    offset += 100;
+  }
+
+  return countries.sort((a, b) => a.name.localeCompare(b.name));
+}
+
 export async function getCountries() {
+  const apiKey = process.env.REST_COUNTRIES_API_KEY;
+
   try {
-    const res = await fetch(
-      "https://restcountries.com/v2/all?fields=name,flag"
-    );
-    const countries = await res.json();
-    return countries;
+    if (apiKey) {
+      return fetchCountriesFromApi(apiKey);
+    }
+
   } catch {
-    throw new Error("Could not fetch countries");
+    throw new Error("error in api key");
   }
 }
 
@@ -199,7 +276,7 @@ export async function updateGuest(id: string | number, updatedFields: object) {
 
 export async function updateBooking(
   id: string | number,
-  updatedFields: object
+  updatedFields: object,
 ) {
   const { data, error } = await supabase
     .from("bookings")

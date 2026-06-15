@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import SelectCountry from "@/app/_components/SelectCountry";
 import UpdateProfileForm from "@/app/_components/UpdateProfileForm";
 import { auth } from "@/app/_lib/auth";
-import { getGuest } from "@/app/_lib/data-service";
+import { getCountries, getGuest } from "@/app/_lib/data-service";
 
 export const metadata: Metadata = {
   title: "Update profile",
@@ -12,7 +13,20 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const session = await auth();
-  const guest = await getGuest(session?.user.email || "");
+  const email = session?.user.email;
+
+  if (!email) {
+    redirect("/login");
+  }
+
+  const [guest, countries] = await Promise.all([
+    getGuest(email),
+    getCountries(),
+  ]);
+
+  if (!guest) {
+    redirect("/login");
+  }
 
   return (
     <main className="min-w-0">
@@ -32,10 +46,12 @@ export default async function Page() {
 
       <UpdateProfileForm guest={guest}>
         <SelectCountry
+          countries={countries}
           name="nationality"
           id="nationality"
           className="min-h-12 w-full rounded-md border border-primary-700/20 bg-primary-100 px-4 py-3 text-primary-900 shadow-sm outline-none transition-all duration-200 focus:border-accent-500 focus:ring-2 focus:ring-accent-500/40 sm:px-5"
           defaultCountry={guest.nationality}
+          defaultCountryFlag={guest.countryFlag}
           props={{
             "aria-describedby": "nationality-description",
             "aria-required": "true",
